@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block content %}
+    <main>
+        <div class="heading">
+            <h1>
+                <div class="heading-icons">
+                    <i class="fa-solid fa-list"></i>
+                </div>
+                <span>Замовлення</span>
+            </h1>
+        </div>
+        <form class="card-form" method="post" action="{% url 'orders_edit' order.id_order %}">
+            {% csrf_token %}
+            <div class="input">
+                <input type="number" name="o_room_number" class="input-field" value="{{ order.o_room_number }}"
+                       required/>
+                <label class="input-label">Номер кімнати</label>
+            </div>
+            <div class="input">
+                <input type="text" name="o_guest_name" class="input-field" value="{{ order.o_guest_name }}" required/>
+                <label class="input-label">Ім'я гостя</label>
+            </div>
+            <div class="input">
+                <input type="text" name="o_item_ordered" class="input-field" value="{{ order.o_item_ordered }}"
+                       required/>
+                <label class="input-label">Замовлена річ</label>
+            </div>
+            <div class="input">
+                <input type="text" name="o_order_date" class="input-field" value="{{ order.o_order_date }}" disabled/>
+                {#        <label class="input-label">Дата</label>#}
+            </div>
+            <div class="input">
+                <input type="text" name="o_quantity" class="input-field" value="{{ order.o_quantity }}" required/>
+                <label class="input-label">Кількість</label>
+            </div>
+            <div class="input">
+                <select name="o_status" id="o_status">
+                    <option value="В обробці">В обробці</option>
+                    <option value="Прийнято">Прийнято</option>
+                    <option value="Виконано">Виконано</option>
+                    <option value="Відхилено">Відхилено</option>
+                </select>
+            </div>
+            <div class="action">
+                <button type="submit" class="action-button confirm-btn">Підтвердити</button>
+                <button type="button" class="action-button cancel-btn">Скасувати</button>
+            </div>
+        </form>
+    </main>
+{% endblock %}

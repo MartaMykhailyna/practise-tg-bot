@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+{% block content %}
+    <main>
+        <div class="heading">
+            <h1>
+                <div class="heading-icons">
+                    <i class="fa-solid fa-square-poll-vertical"></i>
+                </div>
+                <span>Дефекти</span>
+            </h1>
+        </div>
+        <table id="myTable">
+            <thead>
+            <tr>
+                <th>№</th>
+                <th>Номер кімнати</th>
+                <th>Дефект</th>
+                <th>Опис дефекту</th>
+                <th>Час запиту</th>
+                <th>Статус</th>
+                <th>Замовник</th>
+                <th>Операції</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in data %}
+                <tr>
+                    <td>{{ item.id_defect }}</td>
+                    <td>{{ item.d_room_number }}</td>
+                    <td>{{ item.d_defect_type }}</td>
+                    <td>{{ item.d_description }}</td>
+                    <td>{{ item.d_date_reported }}</td>
+                    <td>{{ item.d_status }}</td>
+                    <td>{{ item.d_reported_by.u_name }}</td>
+                    {#            <td>item.</td>#}
+                    {#            <td>#}
+                    {#                {% if item.a_access == 'Активний' %}#}
+                    {#                    <div class="access-active"><span>Active</span></div>#}
+                    {#                {% else %}#}
+                    {#                    <div class="access-non-active"><span>Non active</span></div>#}
+                    {#                {% endif %}#}
+                    {#            </td>#}
+                    <td>
+                        <div class="table-btn-container">
+                            <div class="table-btn">
+                                <form action="{% url 'toggle_d_status' item.id_defect %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" style="background: none; border: none;">
+                                        <i class="fa-solid fa-circle-check"
+                                           style="color: {% if defect.d_status %}green{% else %}#ffffff{% endif %};"></i>
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="table-btn">
+                                <a href="{% url 'defects_edit' item.id_defect %}">
+                                    <i class="fa-solid fa-pen" style="color: #ffffff;"></i>
+                                </a>
+                            </div>
+                            <div class="table-btn">
+                                <form action="{% url 'defects_delete' item.id_defect %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit"
+                                            style="background:none; border:none; padding:0; margin:0; color: #ffffff;">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </main>
+{% endblock %}

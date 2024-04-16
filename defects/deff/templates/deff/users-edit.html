@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block content %}
+    <main>
+        <div class="heading">
+            <h1>
+                <div class="heading-icons">
+                    <i class="fa-solid fa-user-group"></i>
+                </div>
+                <span>Список користувачів</span>
+            </h1>
+        </div>
+        <form class="card-form" method="post" action="{% url 'users_edit' user.id_user %}">
+            {% csrf_token %}
+            <div class="input">
+                <input type="text" class="input-field" name="u_username" value="{{ user.u_username }}" required/>
+                <label class="input-label">Username</label>
+            </div>
+            <div class="input">
+                <input type="text" class="input-field" name="u_name" value="{{ user.u_name }}" required/>
+                <label class="input-label">Повне ім'я</label>
+            </div>
+            <div class="input">
+                <input type="text" class="input-field" name="u_role" value="{{ user.u_role }}" required/>
+                <label class="input-label">Посада</label>
+            </div>
+            <div class="input">
+                <input type="checkbox" class="input-field" name="u_access" {% if user.u_access %}checked{% endif %}/>
+                <label class="input-label">Доступ</label>
+            </div>
+            <div class="action">
+                <button type="submit" class="action-button confirm-btn">Підтвердити</button>
+                <a href="#" class="action-button cancel-btn">Скасувати</a>
+            </div>
+        </form>
+    </main>
+{% endblock %}

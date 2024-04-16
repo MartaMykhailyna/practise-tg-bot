@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+{% block content %}
+        <main>
+<!--            Admins            -->
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                <div class="col">
+                    <div class="card">
+                        <div class="cont">
+                            <i class="fa-solid fa-user-tie fa-5x"></i>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Адміни</h5>
+                            <p class="card-text">Адмінська панель управління</p>
+                            <a href="{% url 'admins' %}" class="btn btn-outline-primary">Перейти</a>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-body-secondary">Last updated 3 mins ago</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <div class="cont">
+                            <i class="fa-solid fa-user-group fa-5x"></i>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Користувачі</h5>
+                            <p class="card-text">Користувацька панель</p>
+                            <a href="{% url 'users' %}" class="btn btn-outline-primary">Перейти</a>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-body-secondary">Last updated 3 mins ago</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <div class="cont">
+                            <i class="fa-solid fa-square-poll-vertical fa-5x"></i>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Дефекти</h5>
+                            <p class="card-text">Відстеження та управління несправностями</p>
+                            <a href="{% url 'defects' %}" class="btn btn-outline-primary">Перейти</a>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-body-secondary">Last updated 3 mins ago</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <div class="cont">
+                            <i class="fa-solid fa-list fa-5x"></i>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Замовлення</h5>
+                            <p class="card-text">Управління та відстеження замовлень</p>
+                            <a href="{% url 'orders' %}" class="btn btn-outline-primary">Перейти</a>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-body-secondary">Last updated 3 mins ago</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+{% block content %}
+    <main class="users-page-main-wrapper">
+        <div class="heading">
+            <h1>
+                <div class="heading-icons">
+                    <i class="fa-solid fa-user-tie"></i>
+                </div>
+                <span>Адміни</span>
+            </h1>
+        </div>
+        <table id="myTable">
+            <thead>
+            <tr>
+                <th>№</th>
+                <th>Унікальне ім'я в системі</th>
+                <th>Повне ім'я</th>
+                <th>Доступ</th>
+                <th>Операції</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in data %}
+                <tr>
+                    <td>{{ item.id_admin }}</td>
+                    <td>{{ item.a_username }}</td>
+                    <td>{{ item.a_name }}</td>
+                    <td>
+                        {% if item.a_access == True %}
+                            <div class="access-active"><span>Active</span></div>
+                        {% else %}
+                            <div class="access-non-active"><span>Non active</span></div>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="table-btn-container">
+                            <div class="table-btn">
+                                <form action="{% url 'toggle_a_access' item.id_admin %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" style="background: none; border: none;">
+                                        <i class="fa-solid fa-circle-check"
+                                           style="color: {% if admin.a_access %}green{% else %}#ffffff{% endif %};"></i>
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="table-btn">
+                                <a href="{% url 'admins_edit' item.id_admin %}">
+                                    <i class="fa-solid fa-pen" style="color: #ffffff;"></i>
+                                </a>
+                            </div>
+                            <div class="table-btn">
+                                <form action="{% url 'admins_delete' item.id_admin %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit"
+                                            style="background:none; border:none; padding:0; margin:0; color: #ffffff;">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </main>
+{% endblock %}

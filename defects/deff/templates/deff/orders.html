@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% load static %}
+    <main>
+        <div class="heading">
+            <h1>
+                <div class="heading-icons">
+                    <i class="fa-solid fa-list"></i>
+                </div>
+                <span>Замовлення</span>
+            </h1>
+        </div>
+        <table id="myTable" class="">
+            <thead>
+            <tr>
+                <th>№</th>
+                <th>Номер кімнати</th>
+                <th>Ім'я гостя</th>
+                <th>Замовлена річ</th>
+                <th>Кількість</th>
+                <th>Дата</th>
+                <th>Статус</th>
+                <th>Операції</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in data %}
+                <tr>
+                    <td>{{ item.id_order }}</td>
+                    <td>{{ item.o_room_number }}</td>
+                    <td>{{ item.o_guest_name }}</td>
+                    <td>{{ item.o_item_ordered }}</td>
+                    <td>{{ item.o_quantity }}</td>
+                    <td>{{ item.o_order_date }}</td>
+                    <td>{{ item.o_status }}</td>
+                    <td>
+                        <div class="table-btn-container">
+                            <div class="table-btn">
+                                <form action="{% url 'toggle_o_status' item.id_order %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" style="background: none; border: none;">
+                                        <i class="fa-solid fa-circle-check"
+                                           style="color: {% if order.o_status %}green{% else %}#ffffff{% endif %};"></i>
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="table-btn">
+                                <a href="{% url 'orders_edit' item.id_order %}">
+                                    <i class="fa-solid fa-pen" style="color: #ffffff;"></i>
+                                </a>
+                            </div>
+                            <div class="table-btn">
+                                <form action="{% url 'orders_delete' item.id_order %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit"
+                                            style="background:none; border:none; padding:0; margin:0; color: #ffffff;">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </main>
+    <script src="{% static 'js/script.js' %}"></script>
+{% endblock %}

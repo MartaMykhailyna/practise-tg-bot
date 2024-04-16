@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block content %}
+    <main>
+        <div class="heading">
+            <h1>
+                <div class="heading-icons">
+                    <i class="fa-solid fa-user-tie"></i>
+                </div>
+                <span>Адміни</span>
+            </h1>
+        </div>
+        <section>
+            <form class="card-form" method="post" action="{% url 'admins_edit' admin.id_admin %}">
+                {% csrf_token %}
+                <div class="input">
+                    <input name="a_username" type="text" class="input-field" value="{{ admin.a_username }}" required/>
+                    <label class="input-label">Username</label>
+                </div>
+                <div class="input">
+                    <input name="a_name" type="text" class="input-field" value="{{ admin.a_name }}" required/>
+                    <label class="input-label">Повне ім'я</label>
+                </div>
+                <div class="input">
+                    <div class="input">
+                        <input name="a_access" type="checkbox" class="input-field"
+                               {% if admin.a_access %}checked{% endif %}/>
+                        <label class="input-label">Доступ</label>
+                    </div>
+                </div>
+                <div class="action">
+                    <button type="submit" class="action-button confirm-btn">Підтвердити</button>
+                    <button type="reset" class="action-button cancel-btn">Скасувати</button>
+                </div>
+            </form>
+        </section>
+    </main>
+{% endblock %}

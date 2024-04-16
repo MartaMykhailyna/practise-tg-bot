@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+{% block content %}
+    <main>
+        <div class="heading">
+            <h1>
+                <div class="heading-icons">
+                    <i class="fa-solid fa-square-poll-vertical"></i>
+                </div>
+                <span>Дефекти</span>
+            </h1>
+        </div>
+        <form class="card-form" method="post" action="{% url 'defects_edit' defect.id_defect %}">
+            {% csrf_token %}
+            <div class="input">
+                <label class="input-label">Номер кімнати</label>
+                <input type="number" class="input-field" name="d_room_number" value="{{ defect.d_room_number }}"
+                       required/>
+            </div>
+            <div class="input">
+                <label class="input-label">Дефект</label>
+                <input type="text" name="d_defect_type" class="input-field" value="{{ defect.d_defect_type }}"
+                       required/>
+            </div>
+            <div class="input">
+                <label class="input-label">Опис дефекту</label>
+                <input type="text" class="input-field" name="d_description" value="{{ defect.d_description }}"
+                       required/>
+            </div>
+            <div class="input">
+                <label class="input-label">Дата</label>
+                <input type="text" class="input-field" value="{{ defect.d_date_reported }}" disabled/>
+            </div>
+            <div class="input">
+                <label class="input-label">Статус</label>
+                <select class="input-field" name="d_status" required>
+                    <option value="В обробці" {% if defect.d_status == 'В обробці' %}selected{% endif %}>В обробці
+                    </option>
+                    <option value="Прийнято" {% if defect.d_status == 'Прийнято' %}selected{% endif %}>Прийнято</option>
+                    <option value="Виконано" {% if defect.d_status == 'Виконано' %}selected{% endif %}>Виконано</option>
+                    <option value="Відхилено" {% if defect.d_status == 'Відхилено' %}selected{% endif %}>Відхилено
+                    </option>
+                </select>
+            </div>
+            <div class="input">
+                <label class="input-label">Користувач, який повідомив</label>
+                <input type="text" class="input-field" name="d_reported_by_hidden"
+                       value="{{ defect.d_reported_by.u_name }}" disabled>
+            </div>
+            <div class="action">
+                <button class="action-button confirm-btn">Підтвердити</button>
+                <button class="action-button cancel-btn">Скасувати</button>
+            </div>
+        </form>
+    </main>
+{% endblock %}
